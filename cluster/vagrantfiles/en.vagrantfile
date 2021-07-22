@@ -15,8 +15,8 @@ end
 
 #######################################################################
 
-servers = config['config']['nodes']['en']
-vbox_version = config['config']['virtualbox']['version']
+servers = config['nodes']['en']
+vbox_version = config['virtualbox']['version']
 
 Vagrant.configure("2") do |config|  
   servers.each do |machine|
