@@ -1,0 +1,49 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+#######################################################################
+
+# Load configuration file
+config_file = 'vagrantfiles/config.yaml'
+
+if File.exists?(config_file)
+  config = YAML.load_file(config_file)
+  # p config.inspect
+else
+  puts "WARNING: Configuration file (#{config_file}) was NOT found!"
+end
+
+#######################################################################
+
+servers = config['config']['nodes']['cm']
+vbox_version = config['config']['virtualbox']['version']
+
+Vagrant.configure("2") do |config|  
+  servers.each do |machine|
+    config.vm.define machine['hostname'] do |node|
+      node.vm.box = machine['box']
+      node.vm.hostname = machine['hostname']
+      # node.vm.network "private_network", ip: machine['ip']
+      node.vm.network "public_network", ip: machine['ip']
+      # node.ssh.username = 'vagrant'
+      # node.ssh.password = 'vagrant'
+      # node.ssh.insert_key = true
+
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = machine['hostname']
+        vb.gui = false
+        vb.cpus = machine['cpu'] 
+        vb.memory = machine['ram'] 
+      end
+    end
+  end
+  
+  config.vm.provision "shell", inline: <<-SHELL
+    /vagrant/scripts/os_upgrade.sh
+    /vagrant/scripts/base_software_install.sh
+    /vagrant/scripts/ssh_allow_password.sh
+    /vagrant/scripts/vbox_guest_additions_install.sh #{vbox_version}
+    /vagrant/scripts/condor_install.sh
+    echo "*** Please reload the virtual machine after upgrade packages ***"
+  SHELL
+end
