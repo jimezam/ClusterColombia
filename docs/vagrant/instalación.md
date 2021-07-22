@@ -21,12 +21,6 @@ $ git clone https://github.com/jimezam/ClusterColombia.git
 Este paso es opcional y consiste en descargar la imagen del sistema operativo con la cual se crearán las máquinas virtuales de los nodos.  Si desea no hacerlo en este momento, se realizará de manera automática en el momento justo en que se cree el primer nodo que la requiera.
 
 ```
-$ vagrant box add centos/7
-
-1) hyperv
-2) libvirt
-3) virtualbox
-4) vmware_desktop
+$ vagrant box add centos/7 --provider=virtualbox
 ```
 
-Elegir la opción `3` para utilizar a Virtualbox como hipervisor.
