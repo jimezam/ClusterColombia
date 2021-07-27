@@ -1,0 +1,32 @@
+#!/bin/bash
+
+source bin/yaml.sh
+
+parse_yaml vagrantfiles/config.yaml && echo
+
+create_variables vagrantfiles/config.yaml
+
+function walk_on() {
+  type=$1
+  name=nodes_${type}__hostname  
+  var=$name[@]
+  array=(${!var})
+  length=${#array[@]}
+
+  for (( i=0; i<$length; i++ ));
+  do
+    echo ${array[$i]}
+  done
+}
+
+
+walk_on "en"
+
+## echo ${nodes_en__hostname[1]}
+# echo ${#nodes_en__hostname[@]}
+
+
+# for (( i=0; i<${tLen}; i++ ));
+# do
+#   echo ${NAMESERVERS[$i]}
+# done

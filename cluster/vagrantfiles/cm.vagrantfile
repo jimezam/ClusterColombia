@@ -28,7 +28,9 @@ Vagrant.configure("2") do |config|
       # node.ssh.username = 'vagrant'
       # node.ssh.password = 'vagrant'
       # node.ssh.insert_key = true
-
+      # config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ""
+      config.vm.synced_folder ".", "/vagrant"
+  
       node.vm.provider "virtualbox" do |vb|
         vb.name = machine['hostname']
         vb.gui = false
@@ -44,6 +46,9 @@ Vagrant.configure("2") do |config|
     /vagrant/scripts/ssh_allow_password.sh
     /vagrant/scripts/vbox_guest_additions_install.sh #{vbox_version}
     /vagrant/scripts/condor_install.sh
+    /vagrant/scripts/hosts_add.sh
+    /vagrant/scripts/rol_general.sh
+    /vagrant/scripts/rol_cm.sh
     echo "*** Please reload the virtual machine after upgrade packages ***"
   SHELL
 end

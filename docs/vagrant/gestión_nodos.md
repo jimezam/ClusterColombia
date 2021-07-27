@@ -30,6 +30,10 @@ $ bin/SCRIPT.sh ACCIÓN NOMBRE_NODO
 
 ## Iniciar los nodos
 
+| Tener en cuenta |
+| --- |
+| Si es la *primera vez* que se inician los nodos, es necesario ejecutar el comando `bin/generate_hosts.rb` para que se generen los archivos `files/hosts*` **antes** del aprovisionamiento, de lo contrario, esta etapa fallará.  (ver sección de [configuración de los nodos](configuración.md)). |
+
 Para iniciar los nodos, en cantidades y configuraciones de acuerdo con los ajustes hechos en la etapa de configuración, se debe invocar el *script* del tipo de nodo deseado (ver [punto anterior](configuración.md)) y la opción `up`.
 
 Para los *Central Manager* sería:
@@ -128,4 +132,12 @@ id       name   provider   state    directory
 5e17afd  en1    virtualbox running  /home/jimezam/ClusterColombia/cluster 
 586e50e  en2    virtualbox running  /home/jimezam/ClusterColombia/cluster 
 ```
+## Sincronización de directorio compartido
 
+Es posible que no se cuente con los recursos necesarios para que la sincronización del directorio compartido (`/vagrant`) no se realiza de manera automática cuando se realizan cambios en alguno de los dos extremos.  En tal caso, es posible *forzar* la sincronización de manera manual mediante el siguiente comando:
+
+```
+$ bin/NODO.sh rsync
+```
+
+Siendo `NODO` el identificador del tipo nodo cuyo directorio compartido se desea sincronizar: `cm`, `en`, `sn`.

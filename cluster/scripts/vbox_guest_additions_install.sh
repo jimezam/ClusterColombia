@@ -9,10 +9,10 @@ VIRTUALBOX_VERSION=$1
 
 echo ">> INSTALLING VIRTUALBOX GUEST ADDITIONS (${VIRTUALBOX_VERSION}) ..."
 
-if [[ $(lsmod | grep -i vbox | wc -l) -ne 0 ]]
-  then echo "*** Virtualbox guest additions already installed.  Skipping."
-  exit
-fi
+# if [[ $(lsmod | grep -i vbox | wc -l) -ne 0 ]]
+#   then echo "*** Virtualbox guest additions already installed.  Skipping."
+#   exit
+# fi
 
 yum install -y gcc make perl kernel-headers kernel-devel
 

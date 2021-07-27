@@ -35,3 +35,7 @@ Por cada uno de los nodos especificados bajo `config` > `nodes` se pueden determ
 | Tener en cuenta |
 | --- |
 | La dirección IP que se le asigne a cada nodo deberá:<br><br>- Pertenecer al direccionamiento público de la red que se utilice.<br>- No estar siendo utilizada por otro dispositivo activo en la red. |
+
+| Tener en cuenta |
+| --- |
+| Cada vez que modifique el direccionamiento IP de los nodos del clúster deberá:<br><br>- Generar nuevamente el archivo de hosts (`bin/generate_hosts.rb`).<br>- Remover del archivo `/etc/hosts` de cada nodo los registros antiguos.<br>- Volver a correr el aprovisionamiento o incluir manualmente el contenido del archivo `files/hosts` en el `/etc/hosts` de cada nodo. |

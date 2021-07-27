@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "$EUID" -ne 0 ]
   then echo "Please run as root"
@@ -19,4 +19,4 @@ yum install -y condor-all
 
 systemctl enable condor
 
-systemctl start condor
+# systemctl start condor
