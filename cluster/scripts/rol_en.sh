@@ -8,3 +8,5 @@ fi
 echo ">> CONFIGURING EXECUTE ROL ..."
 
 sh -c 'echo "use ROLE: Execute" > /etc/condor/config.d/51-role-exec'
+
+service condor restart
