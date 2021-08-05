@@ -20,7 +20,7 @@ fi
 
 # Add the nodes hosts info to /etc/hosts
 
-cat $SOURCE > $TARGET
+cat $SOURCE >> $TARGET
 
 # Checking the result /etc/hosts file
 

@@ -12,6 +12,6 @@ echo ">> CONFIGURING CENTRAL MANAGER ROL ..."
 sh -c 'echo "use ROLE: CentralManager" > /etc/condor/config.d/51-role-cm'
 
 ## TODO: static hostnames not from config.yaml
-sh -c 'echo "ALLOW_WRITE_COLLECTOR=\$(ALLOW_WRITE) en1 en2 sn" >> /etc/condor/config.d/51-role-cm'
+sh -c 'echo "ALLOW_WRITE_COLLECTOR=\$(ALLOW_WRITE) en1 en2 sn cm" >> /etc/condor/config.d/51-role-cm'
 
 service condor restart
