@@ -15,4 +15,7 @@
 # VPN secret files
 cluster/vpn/
 
+# Local cluster nodes configuration
+cluster/vagrantfiles/config.yaml
+
 # End of https://www.toptal.com/developers/gitignore/api/vagrant

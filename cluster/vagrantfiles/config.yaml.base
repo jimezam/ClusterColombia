@@ -1,0 +1,37 @@
+---
+
+virtualbox:
+    version: 6.1.22
+
+nodes:
+  cm:           # CENTRAL MANAGER
+    -
+      hostname: cm
+      ip: 192.168.0.250 
+      box: centos/7
+      ram: 1024
+      cpu: 1
+
+  sn:           # SUBMIT NODE
+    -
+      hostname: sn
+      ip: 192.168.0.251 
+      box: centos/7
+      ram: 1024
+      cpu: 1
+  
+  en:           # EXECUTE NODES
+    -
+      hostname: en1
+      ip: 192.168.0.240
+      box: centos/7
+      ram: 1024
+      cpu: 1
+    -
+      hostname: en2
+      ip: 192.168.0.241
+      box: centos/7
+      ram: 1024
+      cpu: 1
+
+...
