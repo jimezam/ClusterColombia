@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
     /vagrant/scripts/os_upgrade.sh
     /vagrant/scripts/base_software_install.sh
     /vagrant/scripts/ssh_allow_password.sh
-    /vagrant/scripts/vbox_guest_additions_install.sh #{vbox_version}
+    # /vagrant/scripts/vbox_guest_additions_install.sh #{vbox_version}
     /vagrant/scripts/condor_install.sh
     /vagrant/scripts/hosts_add.sh
     /vagrant/scripts/rol_general.sh
