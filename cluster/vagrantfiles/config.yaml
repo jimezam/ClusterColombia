@@ -8,7 +8,7 @@ nodes:
     -
       hostname: cm
       ip: 192.168.0.250 
-      box: centos/7
+      box: bento/centos-7.9
       ram: 1024
       cpu: 1
 
@@ -16,7 +16,7 @@ nodes:
     -
       hostname: sn
       ip: 192.168.0.251 
-      box: centos/7
+      box: bento/centos-7.9
       ram: 1024
       cpu: 1
   
@@ -24,13 +24,13 @@ nodes:
     -
       hostname: en1
       ip: 192.168.0.240
-      box: centos/7
+      box: bento/centos-7.9 
       ram: 1024
       cpu: 1
     -
       hostname: en2
       ip: 192.168.0.241
-      box: centos/7
+      box: bento/centos-7.9
       ram: 1024
       cpu: 1
 
