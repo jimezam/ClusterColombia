@@ -16,7 +16,7 @@
 cluster/files/hosts*
 
 # VPN secret files
-cluster/vpn/
+cluster/vpn/*
 
 # Local cluster nodes configuration
 cluster/vagrantfiles/config.yaml
