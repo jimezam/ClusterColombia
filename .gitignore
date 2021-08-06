@@ -12,6 +12,9 @@
 ### Vagrant Patch ###
 *.box
 
+# Generated hosts files (bin/generate_hosts.rb)
+cluster/files/hosts*
+
 # VPN secret files
 cluster/vpn/
 

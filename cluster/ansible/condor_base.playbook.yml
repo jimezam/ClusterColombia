@@ -1,0 +1,102 @@
+---
+- name: ClusterColombia HTC Condor base playbook
+  
+  hosts: all
+
+  become: yes
+
+  vars:
+    cluster_cm: 'cm'                      # TODO: move it to variables.cfg
+    node_password: "CanarioAmarillo"      # TODO: move it to variables.cfg
+
+  tasks:
+    # Import HTC Condor's GPG Key
+
+    - name: Import HTC Condor's PGP key
+      rpm_key:
+        state: present
+        key: https://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor
+
+    # Add HTC Condor official RHEL7 repository
+
+    - name: Add HTC Condor official RHEL7 repository
+      yum_repository:
+        name: htcondor-development-rhel7
+        description: HTC Condor official RHEL7 repository
+        state: present
+        baseurl: https://research.cs.wisc.edu/htcondor/yum/stable/8.8/rhel7
+        gpgkey: https://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor
+
+    # Install base HTC Condor software
+
+    - name: Install base HTC Condor software
+      yum:
+        name:
+          - epel-release
+          - condor-all
+        state: present
+
+    # Enable the HTC Condor service
+
+    - name: Enable the HTC Condor service
+      service:
+        name: condor
+        enabled: yes
+
+    # Set the cluster's CM as CONDOR HOST
+
+    - name: Set the cluster's CM as CONDOR HOST
+      lineinfile:
+        path: /etc/condor/config.d/49-common
+        line: CONDOR_HOST = {{ cluster_cm }}
+        create: yes
+
+    # Open HTC Condor Collector's communications port
+
+    - name: Open HTC Condor Collector's communications port
+      firewalld:
+        zone: public
+        port: 9618/tcp
+        permanent: yes
+        state: enabled
+      notify:
+          - restart firewalld
+
+    # Create the storage for password authentications between nodes
+
+    - name: Create the storage for password authentications between nodes
+      ansible.builtin.file:
+        path: /etc/condor/passwords.d
+        state: directory
+        mode: '0700'
+
+    # Copy default's HTC Condor security configuration
+
+    - name: get package version
+      yum:
+        list: condor
+      register: condor_package
+
+    - name: set package version
+      set_fact:
+        condor_package_version: "{{ condor_package.results|selectattr('yumstate','match','installed')|map(attribute='version')|sort(attribute='rating')|list|last }}"
+
+    - name: Copy default HTC Condor's security configuration
+      ansible.builtin.copy:
+        src: /usr/share/doc/condor-{{condor_package_version}}/examples/50-security
+        dest: /etc/condor/config.d
+        backup: yes
+
+    # Set the connection password between machines
+
+    - name: Set the connection password between machines
+      command: condor_store_cred add -c -p "{{ node_password }}"
+
+  # List of Handlers
+
+  handlers:
+    - name: restart condor
+      service: name=condor state=restarted
+
+    - name: restart firewalld
+      service: name=firewalld state=restarted

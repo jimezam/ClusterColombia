@@ -16,7 +16,7 @@ end
 #######################################################################
 
 servers = config['nodes']['sn']
-vbox_version = config['virtualbox']['version']
+# vbox_version = config['virtualbox']['version']
 
 Vagrant.configure("2") do |config|  
   servers.each do |machine|
@@ -28,6 +28,7 @@ Vagrant.configure("2") do |config|
       # node.ssh.username = 'vagrant'
       # node.ssh.password = 'vagrant'
       # node.ssh.insert_key = true
+      config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
 
       node.vm.provider "virtualbox" do |vb|
         vb.name = machine['hostname']
@@ -38,15 +39,32 @@ Vagrant.configure("2") do |config|
     end
   end
   
-  config.vm.provision "shell", inline: <<-SHELL
-    /vagrant/scripts/os_upgrade.sh
-    /vagrant/scripts/base_software_install.sh
-    /vagrant/scripts/ssh_allow_password.sh
-    # /vagrant/scripts/vbox_guest_additions_install.sh #{vbox_version}
-    /vagrant/scripts/condor_install.sh
-    /vagrant/scripts/hosts_add.sh
-    /vagrant/scripts/rol_general.sh
-    /vagrant/scripts/rol_sn.sh
-    echo "*** Please reload the virtual machine after upgrade packages ***"
-  SHELL
+  # config.vm.provision "shell", inline: <<-SHELL
+  #   /vagrant/scripts/os_upgrade.sh
+  #   /vagrant/scripts/base_software_install.sh
+  #   /vagrant/scripts/ssh_allow_password.sh
+  #   # /vagrant/scripts/vbox_guest_additions_install.sh #{vbox_version}
+  #   /vagrant/scripts/condor_install.sh
+  #   /vagrant/scripts/hosts_add.sh
+  #   /vagrant/scripts/rol_general.sh
+  #   /vagrant/scripts/rol_sn.sh
+  #   echo "*** Please reload the virtual machine after upgrade packages ***"
+  # SHELL
+
+  config.vm.provision "common", type: "ansible_local" do |ansible|
+    ansible.playbook = "./ansible/common.playbook.yml"
+
+    # ansible.config_file = 'ansible/ansible.cfg'
+    # ansible.sudo = true
+    # ansible.inventory_path = 'ansible/inventory/site'
+    # ansible.host_key_checking = false
+  end
+
+  config.vm.provision "condor_base", type: "ansible_local" do |ansible|
+    ansible.playbook = "./ansible/condor_base.playbook.yml"
+  end
+
+  config.vm.provision "condor_role_sn", type: "ansible_local" do |ansible|
+    ansible.playbook = "./ansible/condor_role_sn.playbook.yml"
+  end
 end

@@ -18,7 +18,6 @@ end
 
 #######################################################################
 
-time = Time.new.strftime("%Y-%m-%d %H:%M:%S")
 fullHosts = ""
 onlyCM = ""
 onlyEN = ""
@@ -46,7 +45,9 @@ roles.each do |rol, nodes|
     end
 end
 
-fullHosts << "\n"
+fullHosts = "\n<!-- BEGIN ANSIBLE MANAGED BLOCK -->\n" <<
+            fullHosts <<
+            "<!-- END ANSIBLE MANAGED BLOCK -->\n\n"
 
 #######################################################################
 
