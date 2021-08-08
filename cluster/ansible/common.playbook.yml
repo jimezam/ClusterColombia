@@ -27,6 +27,7 @@
         name:
           - wget
           - vim
+          - ruby
         state: latest
 
     # Allow SSH password authenticated connections
@@ -38,6 +39,13 @@
         line: 'PasswordAuthentication yes'
       notify:
         - restart sshd
+
+    # Generate /etc/hosts from vagrantfiles/config.rb nodes information
+
+    - name: Generate /etc/hosts from vagrantfiles/config.rb nodes information
+      command: "bin/generate_hosts.rb"
+      args:
+        chdir: /vagrant/
 
     # Remove previous cluster configuration from /etc/hosts
 
