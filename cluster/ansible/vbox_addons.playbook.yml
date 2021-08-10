@@ -1,0 +1,22 @@
+---
+- name: ClusterColombia compile Virtualbox Addons
+  
+  hosts: all
+
+  become: yes
+
+  tasks:
+    # install required software
+
+    - name: install required software
+      yum:
+        name:
+          - gcc
+          - make
+          - perl
+        state: latest
+
+    # Compile module for all available kernels
+
+    - name: Compile module for all available kernels
+      command: "/sbin/rcvboxadd quicksetup all"

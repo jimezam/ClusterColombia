@@ -7,11 +7,14 @@
 
   tasks:
     # Upgrade all operative system packages
+    # *NOTE*: the kernel will not be upgraded to avoid conflicts 
+    # with Virtualbox addons and shared folders.
 
-    - name: Upgrade all operative system packages
+    - name: Upgrade all operative system packages (excluding kernel)
       yum:
         name: "*"
         state: latest
+        exclude: kernel*
 
     # Install Network Time Protocol (NTP) client
 
