@@ -132,12 +132,3 @@ id       name   provider   state    directory
 5e17afd  en1    virtualbox running  /home/jimezam/ClusterColombia/cluster 
 586e50e  en2    virtualbox running  /home/jimezam/ClusterColombia/cluster 
 ```
-## Sincronización de directorio compartido
-
-Es posible que no se cuente con los recursos necesarios para que la sincronización del directorio compartido (`/vagrant`) no se realiza de manera automática cuando se realizan cambios en alguno de los dos extremos.  En tal caso, es posible *forzar* la sincronización de manera manual mediante el siguiente comando:
-
-```
-$ bin/NODO.sh rsync
-```
-
-Siendo `NODO` el identificador del tipo nodo cuyo directorio compartido se desea sincronizar: `cm`, `en`, `sn`.

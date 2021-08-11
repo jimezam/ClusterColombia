@@ -2,13 +2,7 @@
 
 A continuación se describirán las opciones de configuración que se tienen para el clúster virtualizado local.
 
-Editar el archivo de configuración del clúster `cluster/vagrantfiles/config.yaml`.
-
-## Versión de Virtualbox
-
-Bajo la opción `config` > `virtualbox` > `version` ajustar la versión de virtualbox que efectivamente se instaló en el sistema y que se va a utilizar como hipervisor para el clúster.
-
-Por defecto: `6.1.22`.
+Crear el archivo de configuración del clúster `cluster/vagrantfiles/config.yaml` a partir del `config.yaml.base`.
 
 ## Especificación de los nodos del clúster
 
@@ -39,3 +33,9 @@ Por cada uno de los nodos especificados bajo `config` > `nodes` se pueden determ
 | Tener en cuenta |
 | --- |
 | Cada vez que modifique el direccionamiento IP de los nodos del clúster deberá:<br><br>- Generar nuevamente el archivo de hosts (`bin/generate_hosts.rb`).<br>- Remover del archivo `/etc/hosts` de cada nodo los registros antiguos.<br>- Volver a correr el aprovisionamiento o incluir manualmente el contenido del archivo `files/hosts` en el `/etc/hosts` de cada nodo. |
+
+## Archivos de la VPN
+
+En el directorio `cluster/vpn` pueden copiarse los archivos necesarios para realizar la conexión con la VPN a través de la cual se conectarán los clústeres y serán vistos por todas las máquinas virtuales del clúster a través de `/vagrant/vpn`. 
+
+Este directorio no es tenido en cuenta durante el versionamiento de archivos.
