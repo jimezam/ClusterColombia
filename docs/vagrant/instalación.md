@@ -27,6 +27,6 @@ $ git pull origin master
 Este paso es opcional y consiste en descargar la imagen del sistema operativo con la cual se crearán las máquinas virtuales de los nodos.  Si desea no hacerlo en este momento, se realizará de manera automática en el momento justo en que se cree el primer nodo que la requiera.
 
 ```
-$ vagrant box add centos/7 --provider=virtualbox
+$ vagrant box add bento/centos-7.9 --provider=virtualbox
 ```
 
