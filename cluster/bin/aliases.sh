@@ -1,0 +1,15 @@
+# Aliases
+
+alias cs="bin/status.sh"
+alias cmu="bin/cm.sh up"
+alias cmh="bin/cm.sh halt"
+alias cmd="bin/cm.sh destroy"
+alias cms="bin/cm.sh ssh"
+alias e1u="bin/en.sh up en1"
+alias e1h="bin/en.sh halt en1"
+alias e1d="bin/en.sh destroy en1"
+alias e1s="bin/en.sh ssh en1"
+alias e2u="bin/en.sh up en2"
+alias e2h="bin/en.sh halt en2"
+alias e2d="bin/en.sh destroy en2"
+alias e2s="bin/en.sh ssh en2"
