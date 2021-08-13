@@ -6,6 +6,7 @@
 - [Instalación](vagrant/instalación.md)
 - [Configuración](vagrant/configuración.md)
 - [Gestión de los nodos](vagrant/gestión_nodos.md)
+  - [Alias de los principales comandos](vagrant/alias.md)
 - [Aprovisionamiento](vagrant/aprovisionamiento.md)
 
 ## Observaciones
