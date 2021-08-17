@@ -43,6 +43,15 @@
       notify:
         - restart sshd
 
+    # Remove nodes definitions to loopback in /etc/hosts
+
+    - name: Remove nodes definitions to loopback in /etc/hosts
+      replace:
+        backup: yes
+        path: /etc/hosts
+        regexp: '^(127.0.1.1 .*)'
+        replace: '# \1'
+
     # Generate /etc/hosts from vagrantfiles/config.rb nodes information
 
     - name: Generate /etc/hosts from vagrantfiles/config.rb nodes information
