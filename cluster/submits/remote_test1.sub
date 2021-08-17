@@ -1,6 +1,6 @@
 # minimal submit description file for an HTCondor-C job
 universe = grid
-executable = hostname
+executable = /usr/bin/hostname
 output = _remote_test1.out
 error = _remote_test1.err
 log = _remote_test1.log
