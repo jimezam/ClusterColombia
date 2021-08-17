@@ -1,0 +1,6 @@
+executable = /bin/hostname
+universe   = vanilla
+log        = _hostname.log
+output     = _hostname.out
+error      = _hostname.err
+queue

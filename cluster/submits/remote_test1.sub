@@ -1,0 +1,13 @@
+# minimal submit description file for an HTCondor-C job
+universe = grid
+executable = hostname
+output = _remote_test1.out
+error = _remote_test1.err
+log = _remote_test1.log
+
+grid_resource = condor vagrant@cm cm 
++remote_jobuniverse = 5
++remote_requirements = True
++remote_ShouldTransferFiles = "YES"
++remote_WhenToTransferOutput = "ON_EXIT"
+queue
