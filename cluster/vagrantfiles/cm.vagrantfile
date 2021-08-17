@@ -16,71 +16,51 @@ end
 #######################################################################
 
 servers = config['nodes']['cm']
-# vbox_version = config['virtualbox']['version']
 
 Vagrant.configure("2") do |config|  
   servers.each do |machine|
+
+    # Configure the virtual machines
     config.vm.define machine['hostname'] do |node|
       node.vm.box = machine['box']
       node.vm.hostname = machine['hostname']
-      # node.vm.network "private_network", ip: machine['ip']
       node.vm.network "public_network", ip: machine['ip']
-      ## node.vm.network "public_network", use_dhcp_assigned_default_route: true
       # node.ssh.username = 'vagrant'
       # node.ssh.password = 'vagrant'
       # node.ssh.insert_key = true
-      # config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: ""
       config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
 
+      # Define Virtualbox related values
       node.vm.provider "virtualbox" do |vb|
         vb.name = machine['hostname']
-        vb.gui = false
         vb.cpus = machine['cpu'] 
         vb.memory = machine['ram'] 
+        vb.gui = false
       end
-    end
-  end
-  
-  # config.vm.provision "shell", inline: <<-SHELL
-  #   /vagrant/scripts/os_upgrade.sh
-  #   /vagrant/scripts/base_software_install.sh  
-  #   /vagrant/scripts/ssh_allow_password.sh
-  #   # /vagrant/scripts/vbox_guest_additions_install.sh #{vbox_version}  
-  #   /vagrant/scripts/condor_install.sh
-  #   /vagrant/scripts/hosts_add.sh
-  #   /vagrant/scripts/rol_general.sh
-  #   /vagrant/scripts/rol_cm.sh
-  #   /vagrant/scripts/rol_sn.sh
 
-  #   echo "*** Please reload the virtual machine after upgrade packages ***"
-  # SHELL
-
-  config.vm.provision "common", type: "ansible_local" do |ansible|
-    ansible.playbook = "./ansible/common.playbook.yml"
-    ansible.verbose = true
+      # Provision the virtual machine
+      config.vm.provision "common", type: "ansible_local" do |ansible|
+        ansible.playbook = "./ansible/common.playbook.yml"
+        
+        # ansible.verbose = true
+        # ansible.config_file = 'ansible/ansible.cfg'
+        # ansible.sudo = true
+        # ansible.inventory_path = 'ansible/inventory/site'
+        # ansible.host_key_checking = false
+      end
     
-    # ansible.config_file = 'ansible/ansible.cfg'
-    # ansible.sudo = true
-    # ansible.inventory_path = 'ansible/inventory/site'
-    # ansible.host_key_checking = false
-  end
-
-  # config.vm.provision "fix_vboxsf", run: "never", type: "ansible" do |ansible|
-  #   ansible.playbook = "./ansible/vbox_addons.playbook.yml"
-  # end
-
-  config.vm.provision "condor_base", type: "ansible_local" do |ansible|
-    ansible.playbook = "./ansible/condor_base.playbook.yml"
-    ansible.verbose = true
-  end
-
-  config.vm.provision "condor_role_cm", type: "ansible_local" do |ansible|
-    ansible.playbook = "./ansible/condor_role_cm.playbook.yml"
-    ansible.verbose = true
-  end
-
-  config.vm.provision "condor_role_sn", type: "ansible_local" do |ansible|
-    ansible.playbook = "./ansible/condor_role_sn.playbook.yml"
-    ansible.verbose = true
+      config.vm.provision "condor_base", type: "ansible_local" do |ansible|
+        ansible.playbook = "./ansible/condor_base.playbook.yml"
+      end
+    
+      config.vm.provision "condor_role_cm", type: "ansible_local" do |ansible|
+        ansible.playbook = "./ansible/condor_role_cm.playbook.yml"
+      end
+    
+      config.vm.provision "condor_role_sn", type: "ansible_local" do |ansible|
+        ansible.playbook = "./ansible/condor_role_sn.playbook.yml"
+      end
+      # /Provision the virtual machine
+    end
   end
 end
