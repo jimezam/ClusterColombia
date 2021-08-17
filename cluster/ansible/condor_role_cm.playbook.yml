@@ -5,8 +5,8 @@
 
   become: yes
 
-  vars:
-    write_collector_nodes: "en1 en2 sn"   # TODO: move to vars + automate
+  vars_files:
+    - ../ansible/condor.cfg
 
   tasks:
 

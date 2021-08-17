@@ -5,9 +5,8 @@
 
   become: yes
 
-  vars:
-    cluster_cm: 'cm'                      # TODO: move it to variables.cfg
-    node_password: "CanarioAmarillo"      # TODO: move it to variables.cfg
+  vars_files:
+    - ../ansible/condor.cfg
 
   tasks:
     # Import HTC Condor's GPG Key
@@ -24,7 +23,8 @@
         name: htcondor-development-rhel7
         description: HTC Condor official RHEL7 repository
         state: present
-        baseurl: https://research.cs.wisc.edu/htcondor/yum/stable/8.8/rhel7
+        ## baseurl: https://research.cs.wisc.edu/htcondor/yum/stable/8.8/rhel7
+        baseurl: https://research.cs.wisc.edu/htcondor/yum/development/rhel7/
         gpgkey: https://research.cs.wisc.edu/htcondor/yum/RPM-GPG-KEY-HTCondor
 
     # Install base HTC Condor software
@@ -48,8 +48,20 @@
     - name: Set the cluster's CM as CONDOR HOST
       lineinfile:
         path: /etc/condor/config.d/49-common
+        regexp: "^CONDOR_HOST =" 
         line: CONDOR_HOST = {{ cluster_cm }}
         create: yes
+        backup: yes
+
+    # Set the network interface for this node
+
+    - name: Set the network interface for this node
+      lineinfile:
+        path: /etc/condor/condor_config.local
+        regexp: "^NETWORK_INTERFACE =" 
+        line: NETWORK_INTERFACE = {{ ansible_facts['eth1']['ipv4']['address'] }}
+        create: yes
+        backup: yes
 
     # Open HTC Condor Collector's communications port
 
