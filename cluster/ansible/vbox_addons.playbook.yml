@@ -5,6 +5,10 @@
 
   become: yes
 
+  # config.vm.provision "fix_vboxsf", run: "never", type: "ansible" do |ansible|
+  #   ansible.playbook = "./ansible/vbox_addons.playbook.yml"
+  # end
+
   tasks:
     # install required software
 
