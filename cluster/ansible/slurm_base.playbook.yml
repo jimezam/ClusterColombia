@@ -1,0 +1,96 @@
+---
+- name: ClusterColombia common playbook
+  
+  hosts: all
+
+  become: yes
+
+  tasks:
+    # Upgrade all operative system packages
+    # *NOTE*: the kernel will not be upgraded to avoid conflicts 
+    # with Virtualbox addons and shared folders.
+
+    - name: Upgrade all operative system packages (excluding kernel)
+      yum:
+        name: "*"
+        state: latest
+        exclude: kernel*
+
+    # Install Network Time Protocol (NTP) client
+
+    - name: Install Network Time Protocol (NTP) client
+      yum: pkg=ntp state=latest
+      notify:
+        - restart ntpd
+
+    # Install base software
+
+    - name: install base software
+      yum:
+        name:
+          - wget
+          - vim
+          - ruby
+        state: latest
+
+    # Allow SSH password authenticated connections
+
+    - name: Allow SSH password authenticated connections
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^#?PasswordAuthentication'
+        line: 'PasswordAuthentication yes'
+      notify:
+        - restart sshd
+
+    # Remove nodes definitions to loopback in /etc/hosts
+
+    - name: Remove nodes definitions to loopback in /etc/hosts
+      replace:
+        backup: yes
+        path: /etc/hosts
+        regexp: '^(127.0.1.1 .*)'
+        replace: '# \1'
+
+    # Generate /etc/hosts from vagrantfiles/config.rb nodes information
+
+    - name: Generate /etc/hosts from vagrantfiles/config.rb nodes information
+      command: "bin/generate_hosts.rb"
+      args:
+        chdir: /vagrant/
+
+    # Remove previous cluster configuration from /etc/hosts
+
+    - name: Remove previous cluster configuration from /etc/hosts
+      blockinfile:
+        path: /etc/hosts
+        marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+        block: ""
+
+    # Add clusters nodes to /etc/hosts
+
+    - name: Add clusters nodes to /etc/hosts
+      raw: cat /vagrant/files/hosts >> /etc/hosts
+
+    # Clean /etc/motd
+
+    - name: Clean /etc/motd
+      ansible.builtin.copy:
+        src: /vagrant/files/motd
+        dest: /etc/motd
+        backup: yes
+
+    # - name: Clean /etc/motd
+    #   replace:
+    #     path: /etc/motd
+    #     regexp: '[\s\S]+'
+    #     replace: "Bienvenido a un nodo de Cluster Colombia.\n\n"
+
+  # List of Handlers
+
+  handlers:
+    - name: restart ntpd
+      service: name=ntpd state=restarted
+
+    - name: restart sshd
+      service: name=sshd state=restarted

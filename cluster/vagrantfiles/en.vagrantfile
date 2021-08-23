@@ -49,6 +49,15 @@ Vagrant.configure("2") do |config|
         # ansible.host_key_checking = false
       end
     
+      ## SLURM
+
+      # Munge installation & configuration (compute nodes)
+      config.vm.provision "munge_node", type: "ansible_local", run: "never" do |ansible|
+        ansible.playbook = "./ansible/munge_node.playbook.yml"
+      end
+      
+      ## CONDOR
+
       config.vm.provision "condor_base", type: "ansible_local" do |ansible|
         # ansible.extra_vars = {
         # }

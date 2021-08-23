@@ -39,6 +39,7 @@ Vagrant.configure("2") do |config|
       end
 
       # Provision the virtual machine
+      # Base configuration
       config.vm.provision "common", type: "ansible_local" do |ansible|
         ansible.playbook = "./ansible/common.playbook.yml"
         
@@ -48,7 +49,17 @@ Vagrant.configure("2") do |config|
         # ansible.inventory_path = 'ansible/inventory/site'
         # ansible.host_key_checking = false
       end
-    
+
+      ## SLURM
+
+      # Munge installation & configuration 
+      config.vm.provision "munge_main", type: "ansible_local", run: "never" do |ansible|
+        ansible.playbook = "./ansible/munge_main.playbook.yml"
+      end
+
+      ## CONDOR
+
+      # Condor installation & configuration
       config.vm.provision "condor_base", type: "ansible_local" do |ansible|
         ansible.playbook = "./ansible/condor_base.playbook.yml"
       end

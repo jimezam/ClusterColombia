@@ -14,6 +14,7 @@
 
 # Generated hosts files (bin/generate_hosts.rb)
 cluster/files/hosts*
+cluster/files/local
 
 # VPN secret files
 cluster/vpn/*
