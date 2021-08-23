@@ -1,0 +1,63 @@
+---
+# Install required software
+
+- name: install required software
+  yum:
+    name:
+      - epel-release
+      - openssl-devel 
+      - bzip2-devel 
+      - zlib-devel 
+      # - rpm-build 
+      # - gcc
+    state: latest
+
+# Copy the Munge distribution files to node
+
+- name: Make sure destination dir exists
+  file:
+    path: "{{ rpmbuild_root }}"
+    state: directory
+
+- name: Copy the Munge distribution files to node
+  copy:
+    src: "../files/local/{{ item }}"
+    dest: "{{ rpmbuild_root }}"
+  with_items:
+    - "munge-libs-{{ munge_real_version }}.el7.x86_64.rpm"
+    - "munge-devel-{{ munge_real_version }}.el7.x86_64.rpm"
+    - "munge-{{ munge_real_version }}.el7.x86_64.rpm"
+
+# Install Munge from .rpm binary files
+
+- name: Install Munge from .rpm binary files
+  yum:
+    name: ["{{ rpmbuild_root }}/munge-libs-{{ munge_real_version }}.el7.x86_64.rpm",
+            "{{ rpmbuild_root }}/munge-devel-{{ munge_real_version }}.el7.x86_64.rpm",
+            "{{ rpmbuild_root }}/munge-{{ munge_real_version }}.el7.x86_64.rpm"]
+    state: present
+  become: yes
+  become_user: root
+
+# Retrieve the Munge key
+
+- name: Retrieve the Munge key to node
+  copy:
+    src: "../files/local/munge.key"
+    dest: "/etc/munge/munge.key"
+    mode: "600"
+    owner: "munge"
+
+# Enable Munge service
+
+- name: Enable Munge service
+  ansible.builtin.service:
+    name: munge
+    enabled: yes
+
+# Start the Munge service
+
+- name: Start the Munge service
+  ansible.builtin.service:
+    name: munge
+    state: restarted

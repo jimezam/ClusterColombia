@@ -6,7 +6,7 @@
 nodes:
   cm:           # CENTRAL MANAGER
     -
-      hostname: cm
+      hostname: cm.clustercolombia.com
       ip: 192.168.0.250 
       box: bento/centos-7.9
       ram: 1024
@@ -14,7 +14,7 @@ nodes:
 
   sn:           # SUBMIT NODE
     -
-      hostname: sn
+      hostname: sn.clustercolombia.com
       ip: 192.168.0.251 
       box: bento/centos-7.9
       ram: 1024
@@ -22,13 +22,13 @@ nodes:
   
   en:           # EXECUTE NODES
     -
-      hostname: en1
+      hostname: en1.clustercolombia.com
       ip: 192.168.0.240
       box: bento/centos-7.9
       ram: 1024
       cpu: 1
     -
-      hostname: en2
+      hostname: en2.clustercolombia.com
       ip: 192.168.0.241
       box: bento/centos-7.9
       ram: 1024

@@ -1,0 +1,88 @@
+---
+# Install required software
+
+- name: install required software
+  yum:
+    name:
+      - epel-release
+      - openssl-devel 
+      - bzip2-devel 
+      - zlib-devel 
+      - rpm-build 
+      - gcc
+    state: latest
+
+# Download the Munge distribution files
+
+- name: Download the Munge distribution files
+  get_url:
+    url: "{{ item }}"
+    dest: /tmp/
+  with_items: 
+    - https://github.com/dun.gpg
+    - https://github.com/dun/munge/releases/download/munge-{{ munge_version }}/munge-{{ munge_version }}.tar.xz
+    - https://github.com/dun/munge/releases/download/munge-{{ munge_version }}/munge-{{ munge_version }}.tar.xz.asc
+
+# Build .rpm from Munge distribution files
+
+- name: Build .rpm from Munge distribution files
+  ansible.builtin.command: rpmbuild -tb munge-{{ munge_version }}.tar.xz
+  args:
+    chdir: /tmp
+
+# Remove Munge source distribution files
+
+- name: Remove Munge source distribution files
+  ansible.builtin.file:
+    path: "/tmp/{{ item }}"
+    state: absent
+  with_items: 
+    - dun.gpg
+    - munge-{{ munge_version }}.tar.xz
+    - munge-{{ munge_version }}.tar.xz.asc
+
+# Install Munge from .rpm binary files
+
+- name: Install Munge from .rpm binary files
+  yum:
+    name: ["{{ rpmbuild_root }}/munge-libs-{{ munge_real_version }}.el7.x86_64.rpm",
+            "{{ rpmbuild_root }}/munge-devel-{{ munge_real_version }}.el7.x86_64.rpm",
+            "{{ rpmbuild_root }}/munge-{{ munge_real_version }}.el7.x86_64.rpm"]
+    state: present
+  become: yes
+  become_user: root
+
+# Generate Munge key
+
+- name: Generate Munge key
+  ansible.builtin.command: 'mungekey --verbose'
+  become: yes
+  become_user: munge
+  ignore_errors: yes 
+
+# Copy .rpm binary files + key to host
+
+- name: Copy .rpm binary files + key to host
+  ansible.builtin.fetch:
+    src: '{{ item }}' 
+    dest: ../files/local/
+    flat: yes
+  with_items: 
+    - '{{ rpmbuild_root }}/munge-{{ munge_real_version }}.el7.x86_64.rpm'
+    - '{{ rpmbuild_root }}/munge-devel-{{ munge_real_version }}.el7.x86_64.rpm'
+    - '{{ rpmbuild_root }}/munge-libs-{{ munge_real_version }}.el7.x86_64.rpm'
+    - '/etc/munge/munge.key'
+
+# Enable Munge service
+
+- name: Enable Munge service
+  ansible.builtin.service:
+    name: munge
+    enabled: yes
+
+# Start the Munge service
+
+- name: Start the Munge service
+  ansible.builtin.service:
+    name: munge
+    state: restarted

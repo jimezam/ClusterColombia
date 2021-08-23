@@ -39,38 +39,32 @@ Vagrant.configure("2") do |config|
       end
 
       # Provision the virtual machine
-      # Base configuration
-      config.vm.provision "common", type: "ansible_local" do |ansible|
-        ansible.playbook = "./ansible/common.playbook.yml"
-        
-        # ansible.verbose = true
-        # ansible.config_file = 'ansible/ansible.cfg'
+      ################################################################
+
+      ## COMMON
+
+      config.vm.provision 'common', run: 'always', type: :ansible_local do |ansible|
+        ansible.galaxy_roles_path = 'ansible/roles'
+        ansible.playbook = './ansible/common.yml'
         # ansible.sudo = true
-        # ansible.inventory_path = 'ansible/inventory/site'
-        # ansible.host_key_checking = false
-      end
-
-      ## SLURM
-
-      # Munge installation & configuration 
-      config.vm.provision "munge_main", type: "ansible_local", run: "never" do |ansible|
-        ansible.playbook = "./ansible/munge_main.playbook.yml"
+        # ansible.verbose = true
       end
 
       ## CONDOR
 
-      # Condor installation & configuration
-      config.vm.provision "condor_base", type: "ansible_local" do |ansible|
-        ansible.playbook = "./ansible/condor_base.playbook.yml"
+      config.vm.provision 'condor_cm', run: 'always', type: :ansible_local do |ansible|
+        ansible.galaxy_roles_path = 'ansible/roles'
+        ansible.playbook = './ansible/condor_cm.yml'
       end
-    
-      config.vm.provision "condor_role_cm", type: "ansible_local" do |ansible|
-        ansible.playbook = "./ansible/condor_role_cm.playbook.yml"
-      end
-    
-      config.vm.provision "condor_role_sn", type: "ansible_local" do |ansible|
-        ansible.playbook = "./ansible/condor_role_sn.playbook.yml"
-      end
+
+      # ## SLURM (WIP)
+
+      # config.vm.provision 'munge_main', run: 'always', type: :ansible_local do |ansible|
+      #   ansible.galaxy_roles_path = 'ansible/roles'
+      #   ansible.playbook = './ansible/munge_main.yml'
+      # end
+
+      ################################################################
       # /Provision the virtual machine
     end
   end

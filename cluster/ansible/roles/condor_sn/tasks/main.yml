@@ -1,0 +1,27 @@
+---
+# Set the node's role
+
+- name: Check if the node's role already has been set
+  lineinfile:
+    state: absent
+    path: /etc/condor/config.d/51-role-submit
+    line: "use ROLE: Submit"
+  check_mode: true
+  changed_when: false
+  register: check
+
+- name: Set the node's role if it has not been set before
+  lineinfile:
+    state: present
+    path: /etc/condor/config.d/51-role-submit
+    line: "use ROLE: Submit"
+    create: yes
+    backup: yes
+  when: check.msg == "file not present" or check.found == 0
+
+# Restart the HTC Condor's service
+
+- name: Restart the HTC Condor's service
+  ansible.builtin.service:
+    name: condor
+    state: restarted

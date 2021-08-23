@@ -1,0 +1,6 @@
+---
+cluster_cm: 'cm.defaultdomain'
+
+write_collector_nodes: "en1.defaultdomain en2.defaultdomain sn.defaultdomain"
+
+node_password: "myPassword"
