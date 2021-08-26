@@ -27,7 +27,13 @@ roles = config['nodes']
 
 roles.each do |rol, nodes|
     nodes.each do |node|
-      line = "#{node['ip']}\t#{node['hostname'][0..node['hostname'].index(".")-1]} #{node['hostname']}\n"
+      short_domain = ''
+
+      if node['hostname'].index(".") != nil
+        short_domain = node['hostname'][0..node['hostname'].index(".")-1]
+      end
+
+      line = "#{node['ip']}\t#{node['hostname']} #{short_domain}\n"
 
       if rol == "cm"
         onlyCM << line
