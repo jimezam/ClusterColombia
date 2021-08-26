@@ -16,6 +16,7 @@
   roles:
     - condor_common
     - condor_cm
+    - condor_sn
 
   # tasks:
   #   - name: Verify logrotate config check passes
