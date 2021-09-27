@@ -1,14 +1,5 @@
-# Proyecto Clúster Colombia
+# Proyecto ClusterColombia
 
-## Clúster local (Vagrant)
-
-- [Precondiciones](vagrant/precondiciones.md)
-- [Instalación](vagrant/instalación.md)
-- [Configuración](vagrant/configuración.md)
-- [Gestión de los nodos](vagrant/gestión_nodos.md)
-  - [Alias de los principales comandos](vagrant/alias.md)
-- [Aprovisionamiento](vagrant/aprovisionamiento.md)
-
-## Observaciones
-
-- Actualmente el nodo `cm` (*Central Manager*) tiene además el rol de `sn` (*Submit Node*), de esta manera sólo es necesario iniciar los nodos `en` y el nodo `cm`, simulando el ambiente real.
+1. [Definición del Clúster local (experimentación)](instalación/vagrant/readme.md)
+1. [Instalación del clúster (producción)](instalación/manual/readme.md)
+1. [Proxy reverso para acceso el API](proxy/readme.md)
