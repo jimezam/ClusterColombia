@@ -2,11 +2,15 @@
 
 A continuación se describen los pasos para instalar y configurar un proxy reverso con `nginx` para facilitar el acceso a los nodos con el API del clúster (Slurm).
 
+TODO
+
 ## Instalación
 
 ### Instalación de `nginx`
 
+```
 $ sudo yum install nginx
+```
 
 ## Configuración
 

@@ -22,13 +22,14 @@ $ sudo vi /etc/condor/config.d/51-role-cm
 use ROLE: CentralManager
 ```
 
-### Establecer quienes pueden escribir al `condor-collector`
+### Establecer quienes pueden acceder al `condor-collector`
 
-Al archivo `51-role-cm` creado previamente, concatener el texto mostrado a continuación.
+Al archivo `51-role-cm` creado previamente, concatenar el texto mostrado a continuación.
 
 ```
 $ sudo vi /etc/condor/config.d/51-role-cm
 
+# ...
 ALLOW_WRITE_COLLECTOR=$(ALLOW_WRITE) en1.clustercolombia.com en2.clustercolombia.com sn.clustercolombia.com
 ```
 ### Reiniciar el servicio de HTCondor

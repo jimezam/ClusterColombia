@@ -1,6 +1,6 @@
-# Instalación base de HTCondor
+# Instalación general de HTCondor
 
-Los procedimientos descritos en esta guía se deben realizar en todas las máquinas que harán parte del clúster HTCondor.
+Los procedimientos descritos en esta guía se deben realizar en cada una de las máquinas que harán parte del clúster HTCondor.
 
 ## Instalación
 
@@ -52,8 +52,10 @@ CONDOR_HOST = cm.clustercolombia.com
 ```
 $ sudo vi /etc/condor/condor_config.local
 
-NETWORK_INTERFACE = 10.10.10.100
+NETWORK_INTERFACE = xxx.xxx.xxx.xxx
 ```
+
+Ajustar en `xxx.xxx.xxx.xxx` la dirección IP de acuerdo con la asignada de manera estática a cada uno de los nodos del clúster.
 
 ### Permitir conexiones externas al puerto del `condor_collector` a través del firewall
 
@@ -83,7 +85,7 @@ $ sudo mkdir /etc/condor/passwords.d
 $ sudo chmod 700 /etc/condor/passwords.d
 ```
 
-Establecer la contraseña.
+Definir la contraseña.
 
 ```
 $ sudo condor_store_cred add -c -p "MiContraseña"
@@ -92,3 +94,16 @@ $ sudo condor_store_cred add -c -p "MiContraseña"
 | Importante |
 | --- |
 | Para efectos de la elaboración de esta guía, se utilizó el valor de `MiContraseña`, este valor debe ajustarse de acuerdo con el diseño del clúster. |
+
+### Resolver las direcciones de los equipos del nodo
+
+A continuación se muestra un fragmento del archivo que se agregará a `/etc/hosts` según los supuestos de infraestructura con los que se elaboró esta guía.  Sus nombres y direcciones deben ajustarse de acuerdo con las particularidades del clúster.
+
+```
+$ sudo vi /etc/hosts
+
+# ...
+192.168.0.250	cm.clustercolombia.com cm
+192.168.0.251	sn.clustercolombia.com sn
+192.168.0.240	en1.clustercolombia.com en1
+192.168.0.241	en2.clustercolombia.com en2

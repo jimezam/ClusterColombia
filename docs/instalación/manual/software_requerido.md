@@ -1,4 +1,4 @@
-# Software requerido
+# Requerimientos de software
 
 A continuación se lista el software requerido para la instalación y configuración del clúster.
 
