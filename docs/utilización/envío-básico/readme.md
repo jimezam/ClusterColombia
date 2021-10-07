@@ -1,4 +1,4 @@
-# Envío de trabajos al clúster
+# Pruebas de envío de trabajos al clúster
 
 1. [Trabajos locales](locales/readme.md)
 1. [Trabajos remotos](remotos/readme.md)

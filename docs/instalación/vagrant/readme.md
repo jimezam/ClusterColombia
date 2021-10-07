@@ -1,4 +1,4 @@
-# Proyecto Clúster Colombia
+# Definición del clúster local
 
 ## Clúster local (Vagrant)
 
