@@ -8,22 +8,22 @@ Crear un archivo con extension `.sub` (no es obligatorio) con mínimo las siguie
 
 | Variable | Descripción |
 | --- | --- |
-| executable | Ruta del programa a ejecutarse |
-| universe   | Debe ser exclusivamente `grid` |
-| log        | Ubicación del archivo de registro de la ejecución |
-| output     | Ubicación del archivo de la salida estándar del programa ejecutado |
-| error      | Ubicación del archivo de la salida de error del programa ejecutado |
-| grid_resource | Establece la información del clúster de destino: tipo de *grid* (`condor`), `schedd` y `collector`.
+| `executable` | Ruta del programa a ejecutarse |
+| `universe`   | Debe ser exclusivamente `grid` |
+| `log`        | Ubicación del archivo de registro de la ejecución |
+| `output`     | Ubicación del archivo de la salida estándar del programa ejecutado |
+| `error`      | Ubicación del archivo de la salida de error del programa ejecutado |
+| `grid_resource` | Establece la información del clúster de destino: tipo de *grid* (`condor`), `schedd` y `collector`.
 
 Posteriormente se definen en el mismo archivo, las variables concernientes a las opciones que determinarán cómo se ejecutará el trabajo en el clúster de destino.  Por ejemplo se incluyen las siguientes.
 
 | Variable | Descripción |
 | --- | --- |
-| +remote_jobuniverse          | Debe ser exclusivamente `9` (*grid*)  |
-| +remote_gridresource         | Debe ser `batch slurm` para indicar la ejecución en esa cola |
-| +remote_requirements         | Requerimientos específicos de la tarea en enviarse, `False` para ninguno |
-| +remote_ShouldTransferFiles  | ¿Se deberá transmitir archivos? | 
-| +remote_WhenToTransferOutput | ¿Cuándo se deberá hacer la transmisión de los archivos? |
+| `+remote_jobuniverse`          | Debe ser exclusivamente `9` (*grid*)  |
+| `+remote_gridresource`         | Debe ser `batch slurm` para indicar la ejecución en esa cola |
+| `+remote_requirements`         | Requerimientos específicos de la tarea en enviarse, `False` para ninguno |
+| `+remote_ShouldTransferFiles`  | ¿Se deberá transmitir archivos? | 
+| `+remote_WhenToTransferOutput` | ¿Cuándo se deberá hacer la transmisión de los archivos? |
 
 Por ejemplo, a continuación se describe el contenido de `slurm.sub`.
 

@@ -8,21 +8,21 @@ Crear un archivo con extension `.sub` (no es obligatorio) con mínimo las siguie
 
 | Variable | Descripción |
 | --- | --- |
-| executable | Ruta del programa a ejecutarse |
-| universe   | Debe ser exclusivamente `grid` |
-| log        | Ubicación del archivo de registro de la ejecución |
-| output     | Ubicación del archivo de la salida estándar del programa ejecutado |
-| error      | Ubicación del archivo de la salida de error del programa ejecutado |
-| grid_resource | Establece la información del clúster de destino: tipo de *grid* (`condor`), `schedd` y `collector`.
+| `executable` | Ruta del programa a ejecutarse |
+| `universe`   | Debe ser exclusivamente `grid` |
+| `log`        | Ubicación del archivo de registro de la ejecución |
+| `output`     | Ubicación del archivo de la salida estándar del programa ejecutado |
+| `error`      | Ubicación del archivo de la salida de error del programa ejecutado |
+| `grid_resource` | Establece la información del clúster de destino: tipo de *grid* (`condor`), `schedd` y `collector`.
 
 Posteriormente se definen en el mismo archivo, las variables concernientes a las opciones que determinarán cómo se ejecutará el trabajo en el clúster de destino.  Por ejemplo se incluyen las siguientes.
 
 | Variable | Descripción |
 | --- | --- |
-| +remote_Universe             | Tipo de programa a ejecutarse |
-| +remote_requirements         | ¿Se incluirán requerimientos remotos? |
-| +remote_ShouldTransferFiles  | ¿Se deberá transmitir archivos? | 
-| +remote_WhenToTransferOutput | ¿Cuándo se deberá hacer la transmisión de los archivos? |
+| `+remote_Universe`             | Tipo de programa a ejecutarse |
+| `+remote_requirements`         | ¿Se incluirán requerimientos remotos? |
+| `+remote_ShouldTransferFiles`  | ¿Se deberá transmitir archivos? | 
+| `+remote_WhenToTransferOutput` | ¿Cuándo se deberá hacer la transmisión de los archivos? |
 
 Por ejemplo, a continuación se describe el contenido de `remote.sub`.
 

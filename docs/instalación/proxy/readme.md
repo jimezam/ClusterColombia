@@ -80,10 +80,10 @@ Ajustar las siguientes variables de configuración del proxy de acuerdo con las 
 
 | Variable | Descripción | Valor propuesto |
 | --- | --- | --- |
-| listen | Puerto en el cuál escuchará el proxy | `3332` |
-| server_name | FQDN del proxy | `proxy.clustercolombia.co` |
-| access_log | Ubicación del registro de accesos | `/var/log/nginx/proxy_access.log` |
-| error_log | Ubicación del registro de errores | `/var/log/nginx/proxy_error.log` |
+| `listen` | Puerto en el cuál escuchará el proxy | `3332` |
+| `server_name` | FQDN del proxy | `proxy.clustercolombia.co` |
+| `access_log` | Ubicación del registro de accesos | `/var/log/nginx/proxy_access.log` |
+| `error_log` | Ubicación del registro de errores | `/var/log/nginx/proxy_error.log` |
 
 Modificar el archivo `/etc/nginx/conf.d/api-proxy.conf` para que sea propiedad del usuario `nginx`.
 
@@ -97,13 +97,13 @@ Remover el comentario de las siguientes variables de configuración relacionadas
 
 | Variable | Descripción | Valor propuesto |
 | --- | --- | --- |
-| ssl | Activa el soporte para TLS/SSL | `on` |
-| ssl_certificate | Llave pública del certificado | `"/etc/pki/nginx/ca.crt"` |
-| ssl_certificate_key | Llave privada del certificado | `"/etc/pki/nginx/private/ca.key"` |`
-| ssl_session_timeout | Tiempo máximo de espera para transacciones SSL | `5m` |
-| ssl_prefer_server_ciphers | Utilizar un listado personalizado de cifradores | `on` |
-| ssl_ciphers | Algoritmos de cifrado a utilizarse | `ECDH+AESGCM:ECDH+AES256-CBC:ECDH+AES128-CBC:DH+3DES:!ADH:!AECDH:!MD5` |
-| ssl_protocols | Versiones de protocolo TLS a utilizarse | `TLSv1.2 TLSv1.3` |
+| `ssl` | Activa el soporte para TLS/SSL | `on` |
+| `ssl_certificate` | Llave pública del certificado | `"/etc/pki/nginx/ca.crt"` |
+| `ssl_certificate_key` | Llave privada del certificado | `"/etc/pki/nginx/private/ca.key"` |`
+| `ssl_session_timeout` | Tiempo máximo de espera para transacciones SSL | `5m` |
+| `ssl_prefer_server_ciphers` | Utilizar un listado personalizado de cifradores | `on` |
+| `ssl_ciphers` | Algoritmos de cifrado a utilizarse | `ECDH+AESGCM:ECDH+AES256-CBC:ECDH+AES128-CBC:DH+3DES:!ADH:!AECDH:!MD5` |
+| `ssl_protocols` | Versiones de protocolo TLS a utilizarse | `TLSv1.2 TLSv1.3` |
 
 ### Configuración de servidores de API
 
@@ -128,16 +128,16 @@ Ajustar el valor de las siguientes variables de acuerdo con la configuración es
 
 | Varible | Tipo | Descripción |
 | --- | --- | --- |
-| location /nombre | Obligatoria | `/nombre` será el URI con el cual se accederá al servidor de API específico a través del proxy |
-| allow 127.0.0.0/24; <br> deny all; | Opcional | Permite establecer la política de filtrado por defecto.  En este caso, permitir (`allow`) conexiones sólo desde una ubicación específica y negar las demás |
-| limit_except GET { deny all; } | Opcional | Permite establecer una política de filtrado a nivel de verbos HTTP.  En este caso, sólo permite solicitudes tipo `GET` |
-| proxy_pass | Obligatoria | Establece el URL exacto en el cual se consultará el API del servidor específico |
+| `location /nombre` | Obligatoria | `/nombre` será el URI con el cual se accederá al servidor de API específico a través del proxy |
+| `allow 127.0.0.0/24;` <br> `deny all;` | Opcional | Permite establecer la política de filtrado por defecto.  En este caso, permitir (`allow`) conexiones sólo desde una ubicación específica y negar las demás |
+| `limit_except GET { deny all; }` | Opcional | Permite establecer una política de filtrado a nivel de verbos HTTP.  En este caso, sólo permite solicitudes tipo `GET` |
+| `proxy_pass` | Obligatoria | Establece el URL exacto en el cual se consultará el API del servidor específico |
 
 #### Acerca Slurm
 
 En caso de que el servicio de API de `Slurm` se encuentre en el mismo nodo que el proxy, el valor de `proxy_pass` sería local de la forma: `http://unix:/var/run/slurmrestd.socket:/`.
 
-En caso de que se encuentren en nodos diferentes, debe utilizarse de manera remota: `http://host/ruta/a/api/`.
+En caso de que se encuentren en nodos diferentes, debe utilizarse de manera remota: `http://host/route/to/api/`.
 
 ### Reiniciar el servicio de nginx
 

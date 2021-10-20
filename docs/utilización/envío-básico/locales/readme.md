@@ -8,11 +8,11 @@ Crear un archivo con extension `.sub` (no es obligatorio) con mínimo las siguie
 
 | Variable | Descripción |
 | --- | --- |
-| executable | Ruta del programa a ejecutarse |
-| universe   | Tipo de programa a ejecutarse |
-| log        | Ubicación del archivo de registro de la ejecución |
-| output     | Ubicación del archivo de la salida estándar del programa ejecutado |
-| error      | Ubicación del archivo de la salida de error del programa ejecutado |
+| `executable` | Ruta del programa a ejecutarse |
+| `universe`   | Tipo de programa a ejecutarse |
+| `log`        | Ubicación del archivo de registro de la ejecución |
+| `output`     | Ubicación del archivo de la salida estándar del programa ejecutado |
+| `error`      | Ubicación del archivo de la salida de error del programa ejecutado |
 
 Por ejemplo, a continuación se describe el contenido de `hostname.sub`.
 
