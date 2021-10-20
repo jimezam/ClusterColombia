@@ -30,8 +30,12 @@ Al archivo `51-role-cm` creado previamente, concatenar el texto mostrado a conti
 $ sudo vi /etc/condor/config.d/51-role-cm
 
 # ...
-ALLOW_WRITE_COLLECTOR=$(ALLOW_WRITE) en1.clustercolombia.com en2.clustercolombia.com sn.clustercolombia.com
+ALLOW_WRITE_COLLECTOR=$(ALLOW_WRITE) sn.clustercolombia.com
 ```
+| Importante |
+| --- |
+| Agregar a este listado separado por espacios, a cualquier `Submit Node` (`SN`) que se tenga en el clúster |
+
 ### Reiniciar el servicio de HTCondor
 
 Una vez configurado el nodo con el rol de `cm`, reiniciar el servicio para que los cambios recién hechos sean tenidos en cuenta.

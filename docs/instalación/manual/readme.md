@@ -25,6 +25,7 @@ Cada uno de los servidores tiene instalado [Centos 7.9](http://isoredirect.cento
 1. Interconexión entre clústers
     1. [Nodo principal (`CM`/`SN`)](interconexión/readme.md)
     1. [Nodos de ejecución (`EN`)](interconexión/nodo_en.md)
+    1. [Gestión de ID Tokens](interconexión/gestion_tokens.md)
 
 ## Observaciones
 

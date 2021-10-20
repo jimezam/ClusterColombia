@@ -1,0 +1,44 @@
+server {
+	listen 80;
+        # server_name apiproxy.clustercolombia.com;
+        # ssl_certificate C:/nginx-1.4.4/cert/NginxServer.crt;
+        # ssl_certificate_key /etc/ssl/private/example.org.key;
+        
+        # auth_basic_user_file /etc/nginx/users.passwd;
+        # auth_basic "Login proxy or hit enter on this prompt:";
+        
+        # access_log  C:/nginx-1.4.4/logs/access_8001.log;
+     	# error_log  C:/nginx-1.4.4/logs/error_8001.log;
+
+	location /amigo {
+		allow 127.0.0.0/24;
+	        deny all;
+		
+		limit_except GET {
+			deny all;
+		}
+
+		proxy_pass http://127.0.0.1/x/;
+	}
+
+	location /amigo2 {
+		# proxy_buffering off;
+		# proxy_buffers 16 4k;
+		# proxy_buffer_size 2k;
+
+		# proxy_set_header Host $host;
+		# proxy_set_header X-Real-IP $remote_addr;
+		# proxy_set_header header-variable "";
+
+		# proxy_bind 127.0.0.1;
+		
+		allow 127.0.0.0/24;
+	        deny all;
+		
+		limit_except GET {
+			deny all;
+		}
+
+		proxy_pass http://127.0.0.5:8888/y/;
+	}
+}

@@ -4,7 +4,7 @@ A continuación se detallan los pasos necesarios para crear un nuevo usuario que
 
 ## Ajustes en el nodo principal del clúster
 
-Los siguientes ajustes de configuración se deben realizar en el nodo principal del clúster **que va a recibir los trabajos** del usuario.
+Los siguientes ajustes de configuración se deben realizar en el `Central Manager` (`CM`) del clúster **que va a recibir los trabajos** del usuario.
 
 ### Creación del usuario en el sistema operativo
 
@@ -36,8 +36,6 @@ $ sudo passwd pepito
 
 ### Creación del ID Token
 
-TODO: verificar si el token debe estar en quién recibe o sólo en quién envía.
-
 ```
 $ sudo condor_token_create -identity NOMBRE_DE_USUARIO@DOMINIO > NOMBRE_DE_USUARIO@DOMINIO.token
 ```
@@ -52,7 +50,7 @@ Por ejemplo:
 $ sudo condor_token_create -identity pepito@clustercolombia.com > pepito@clustercolombia.com.token
 ```
 
-Ubicar el *token* recién creado en el directorio  del usuario (`SEC_TOKEN_DIRECTORY`).
+Ubicar el *token* recién creado en el directorio  del usuario (`SEC_TOKEN_DIRECTORY`).  Este paso es *opcional*, sólo es necesario si se desea que el usuario ejecute tareas locales o comandos de administración como `condor_q` o `condor_status`.
 
 ```
 $ sudo mkdir -p ~NOMBRE_DE_USUARIO/.condor/tokens.d
@@ -79,7 +77,6 @@ $ sudo chown pepito:pepito ~pepito/.condor/tokens.d/pepito@clustercolombia.com.t
 
 $ sudo chmod 0700 ~pepito/.condor/tokens.d/pepito@clustercolombia.com.token
 ```
-TODO: repliación en ENs
 
 ## Ajustes en el nodo emisor de los trabajos
 
