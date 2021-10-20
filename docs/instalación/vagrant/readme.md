@@ -1,4 +1,4 @@
-# Definición del clúster local
+# Instalación del clúster local
 
 ## Clúster local (Vagrant)
 
