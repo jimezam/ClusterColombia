@@ -85,8 +85,6 @@ ALLOW_READ = *
 ALLOW_WRITE = *
 SEC_READ_AUTHENTICATION = OPTIONAL
 
-# Allow submit from individual users on below variables
-
 ALLOW_ADVERTISE_MASTER = \
     $(ALLOW_ADVERTISE_MASTER) \
     $(ALLOW_WRITE_COLLECTOR) 
@@ -100,6 +98,15 @@ ALLOW_ADVERTISE_SCHEDD = \
     $(ALLOW_WRITE_COLLECTOR) 
 
 ``` 
+
+Para mayor seguridad, ajustar los valores de las variables `ALLOW_READ` y `ALLOW_WRITE` con una lista -separada por espacios- de las direcciones IP de cada uno de los Nodos `Central Manager (CM)` de cada clúster.  En la variable `ALLOW_WRITE` se debe incluir las direcciones IP (o subdominio completo) de los `Execute Nodes (EN)` del nodo local.
+
+Por ejemplo, suponiendo que `10.70.70.1` y `10.70.70.10` son las direcciones IP de los `CM` de los clústeres amigos.
+
+| Variable | Valor |
+| --- | --- |
+| `ALLOW_READ` | `10.70.70.1 10.70.70.10` |
+| `ALLOW_WRITE` | `10.70.70.1 10.70.70.10 *.clustercolombia.com` |
 
 Esta es una [copia local](50-security) de un archivo `50-security` de ejemplo.
 

@@ -42,7 +42,12 @@ grid_resource = condor cm.clusteramigo.com cm.clusteramigo.com
 queue
 ```
 
-## Enviar el trabajo al clúster local
+| Importante |
+| --- |
+| Cuando el nodo cuenta con varias interfaces de red posiblemente sea necesario especificar el `schedd` (primer parámetro) del `grid_resource` de la forma `nodo@interfaz_de_red`.  
+Por ejemplo: `grid_resource = condor cm.clusteramigo.com@ibr1masterl01 cm.clusteramigo.com` |
+
+## Enviar el trabajo al clúster remoto
 
 Para hacer esto se debe ejecutar el comando `condor_submit` junto con el nombre del archivo `.sub` a enviarse.
 
@@ -79,17 +84,89 @@ Consultar el contenido del archivo `/tmp/CGAHPWorkerLog.USUARIO`, donde `USUARIO
 ```
 $ tail -f /tmp/CGAHPWorkerLog.jimezam
 
-TODO
+10/19/21 23:20:27 ******************************************************
+10/19/21 23:20:27 ** condor_c-gahp_worker_thread (CONDOR_C_GAHP_WORKER_THREAD) STARTING UP
+10/19/21 23:20:27 ** /usr/sbin/condor_c-gahp_worker_thread
+10/19/21 23:20:27 ** SubsystemInfo: name=C_GAHP_WORKER_THREAD type=GAHP(9) class=DAEMON(1)
+10/19/21 23:20:27 ** Configuration: subsystem:C_GAHP_WORKER_THREAD local:<NONE> class:DAEMON
+10/19/21 23:20:27 ** $CondorVersion: 8.9.13 Mar 30 2021 BuildID: 535058 PackageID: 8.9.13-1 $
+10/19/21 23:20:27 ** $CondorPlatform: x86_64_CentOS7 $
+10/19/21 23:20:27 ** PID = 2898353
+10/19/21 23:20:27 ** Log last touched 10/11 10:47:21
+10/19/21 23:20:27 ******************************************************
+10/19/21 23:20:27 Using config source: /etc/condor/condor_config
+10/19/21 23:20:27 Using local config sources: 
+10/19/21 23:20:27    /etc/condor/config.d/00-htcondor-9.0.config
+10/19/21 23:20:27    /etc/condor/config.d/49-common
+10/19/21 23:20:27 ******************************************************
+10/19/21 23:20:27    /etc/condor/config.d/50-security
+10/19/21 23:20:27 ** condor_c-gahp_worker_thread (CONDOR_C_GAHP_WORKER_THREAD) STARTING UP
+10/19/21 23:20:27    /etc/condor/config.d/51-role-cm
+10/19/21 23:20:27 ** /usr/sbin/condor_c-gahp_worker_thread
+10/19/21 23:20:27    /etc/condor/config.d/51-role-submit
+10/19/21 23:20:27 ** SubsystemInfo: name=C_GAHP_WORKER_THREAD type=GAHP(9) class=DAEMON(1)
+10/19/21 23:20:27    /etc/condor/condor_config.local
+10/19/21 23:20:27 ** Configuration: subsystem:C_GAHP_WORKER_THREAD local:<NONE> class:DAEMON
+10/19/21 23:20:27 config Macros = 83, Sorted = 83, StringBytes = 3206, TablesBytes = 3076
+10/19/21 23:20:27 ** $CondorVersion: 8.9.13 Mar 30 2021 BuildID: 535058 PackageID: 8.9.13-1 $
+10/19/21 23:20:27 CLASSAD_CACHING is ENABLED
+10/19/21 23:20:27 ** $CondorPlatform: x86_64_CentOS7 $
+10/19/21 23:20:27 ** PID = 2898354
+10/19/21 23:20:27 Daemon Log is logging: D_ALWAYS D_ERROR
+10/19/21 23:20:27 ** Log last touched 10/19 23:20:27
+10/19/21 23:20:27 ******************************************************
+10/19/21 23:20:27 Using config source: /etc/condor/condor_config
+10/19/21 23:20:27 Using local config sources: 
+10/19/21 23:20:27    /etc/condor/config.d/00-htcondor-9.0.config
+10/19/21 23:20:27    /etc/condor/config.d/49-common
+10/19/21 23:20:27    /etc/condor/config.d/50-security
+10/19/21 23:20:27    /etc/condor/config.d/51-role-cm
+10/19/21 23:20:27    /etc/condor/config.d/51-role-submit
+10/19/21 23:20:27    /etc/condor/condor_config.local
+10/19/21 23:20:27 config Macros = 83, Sorted = 83, StringBytes = 3206, TablesBytes = 3076
+10/19/21 23:20:27 CLASSAD_CACHING is ENABLED
+10/19/21 23:20:27 Daemon Log is logging: D_ALWAYS D_ERROR
+10/19/21 23:20:27 Daemoncore: Listening at <0.0.0.0:17403> on TCP (ReliSock) and UDP (SafeSock).
+10/19/21 23:20:27 DaemonCore: command socket at <10.70.70.12:17403?PrivAddr=%3c192.168.1.250:17403%3e&PrivNet=ClusterColombia&addrs=10.70.70.12-17403&alias=cm.clustercolombia.com>
+10/19/21 23:20:27 Daemoncore: Listening at <0.0.0.0:20559> on TCP (ReliSock) and UDP (SafeSock).
+10/19/21 23:20:27 DaemonCore: private command socket at <192.168.1.250:17403?addrs=10.70.70.12-17403>
+10/19/21 23:20:27 DaemonCore: command socket at <10.70.70.12:20559?PrivAddr=%3c192.168.1.250:20559%3e&PrivNet=ClusterColombia&addrs=10.70.70.12-20559&alias=cm.clustercolombia.com>
+10/19/21 23:20:27 DaemonCore: private command socket at <192.168.1.250:20559?addrs=10.70.70.12-20559>
+10/19/21 23:20:43 [2898354] Adding 37.0 to STAGE_IN batch
+10/19/21 23:21:00 [2898354] EOF reached on DaemonCore pipe 65536
+10/19/21 23:21:00 [2898353] EOF reached on DaemonCore pipe 65536
+10/19/21 23:21:00 [2898354] Request pipe closed. Exiting...
+10/19/21 23:21:00 [2898353] Request pipe closed. Exiting...
+10/19/21 23:21:00 [2898354] **** condor_c-gahp_worker_thread (condor_C_GAHP_WORKER_THREAD) pid 2898354 EXITING WITH STATUS 1
+10/19/21 23:21:00 [2898353] **** condor_c-gahp_worker_thread (condor_C_GAHP_WORKER_THREAD) pid 2898353 EXITING WITH STATUS 1
+
 ```
 
-## Consultar el resultado de la ejecución local
+## Consultar el resultado de la ejecución remota
 
 La información relacionada con la ejecución del trabajo, incluyendo el resultado obtenido, se almacena en los archivos especificados por las variables `log`, `output` y `error` del archivo `.sub` ejecutado.
 
 ```
 $ cat _remote.log
 
-TODO
+000 (005.000.000) 2021-10-19 23:20:24 Job submitted from host: <10.70.70.12:9618?PrivAddr=%3c192.168.1.250:9618%3fsock%3dschedd_951022_915f%3e&PrivNet=ClusterColombia&addrs=10.70.70.12-9618&alias=cm.clustercolombia.com&noUDP&sock=schedd_951022_915f>
+...
+027 (005.000.000) 2021-10-19 23:20:38 Job submitted to grid resource
+    GridResource: condor cm.clusteramigo.com cm.clusteramigo.com
+    GridJobId: condor cm.clusteramigo.com cm.clusteramigo.com 37.0
+...
+005 (005.000.000) 2021-10-19 23:21:00 Job terminated.
+	(1) Normal termination (return value 0)
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Run Local Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Remote Usage
+		Usr 0 00:00:00, Sys 0 00:00:00  -  Total Local Usage
+	0  -  Run Bytes Sent By Job
+	0  -  Run Bytes Received By Job
+	0  -  Total Bytes Sent By Job
+	0  -  Total Bytes Received By Job
+...
+
 ```
 
 ```
@@ -101,7 +178,7 @@ en1.clusteramigo.com
 ``` 
 $ cat _remote.err
 
-[Vacío]]
+[Vacío]
 ```
 
 ## Recursos

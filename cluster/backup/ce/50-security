@@ -23,22 +23,21 @@ if $(USE_POOL_PASSWORD:no)
     ALLOW_ADVERTISE_MASTER = condor_pool@*/* $(ALLOW_ADVERTISE_MASTER)
 endif
 
-# Allow public reads; in this case. Adjust according local setup.
-ALLOW_READ = 10.70.70.1 10.70.70.10
-# Allow public writes; in this case. Adjust according local setup.
-ALLOW_WRITE = 10.70.70.1 10.70.70.10 *.clustercaldas.com
+# Allow public reads; in this case.
+ALLOW_READ = *
 SEC_READ_AUTHENTICATION = OPTIONAL
-
-# Allow submit from individual users on below variables
 
 ALLOW_ADVERTISE_MASTER = \
     $(ALLOW_ADVERTISE_MASTER) \
-    $(ALLOW_WRITE_COLLECTOR)
+    $(ALLOW_WRITE_COLLECTOR) \
+    vagrant@clustercolombia.com 
 
 ALLOW_ADVERTISE_STARTD = \
     $(ALLOW_ADVERTISE_STARTD) \
-    $(ALLOW_WRITE_COLLECTOR)
+    $(ALLOW_WRITE_COLLECTOR) \
+    vagrant@clustercolombia.com 
 
 ALLOW_ADVERTISE_SCHEDD = \
     $(ALLOW_ADVERTISE_STARTD) \
-    $(ALLOW_WRITE_COLLECTOR)
+    $(ALLOW_WRITE_COLLECTOR) \
+    vagrant@clustercolombia.com 

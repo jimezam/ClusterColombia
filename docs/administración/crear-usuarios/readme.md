@@ -79,39 +79,7 @@ $ sudo chown pepito:pepito ~pepito/.condor/tokens.d/pepito@clustercolombia.com.t
 
 $ sudo chmod 0700 ~pepito/.condor/tokens.d/pepito@clustercolombia.com.token
 ```
-
-### Autorizar la recepción de trabajos
-
-TODO: verificar si es necesario agregar el usuario en los tres.
-
-En el archivo `/etc/condor/config.d/50-security` agregar el `NOMBRE_DE_USUARIO@DOMINIO` a las variables `ALLOW_ADVERTISE_MASTER`, `ALLOW_ADVERTISE_STARTD` y `ALLOW_ADVERTISE_SCHEDD`.
-
-Por ejemplo:
-
-```
-$ sudo vi /etc/condor/config.d/50-security
-
-# ...
-
-ALLOW_ADVERTISE_MASTER = \
-    $(ALLOW_ADVERTISE_MASTER) \
-    $(ALLOW_WRITE_COLLECTOR) \
-    # ...
-    pepito@clustercolombia.com
-
-ALLOW_ADVERTISE_STARTD = \
-    $(ALLOW_ADVERTISE_STARTD) \
-    $(ALLOW_WRITE_COLLECTOR) \
-    # ...
-    pepito@clustercolombia.com
-
-ALLOW_ADVERTISE_SCHEDD = \
-    $(ALLOW_ADVERTISE_STARTD) \
-    $(ALLOW_WRITE_COLLECTOR) \
-    # ...
-    pepito@clustercolombia.com
-
-```
+TODO: repliación en ENs
 
 ## Ajustes en el nodo emisor de los trabajos
 

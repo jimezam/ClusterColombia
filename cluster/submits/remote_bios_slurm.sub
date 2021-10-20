@@ -1,0 +1,18 @@
+# minimal submit description file for a SLURM's HTCondor-C job
+universe = grid 
+executable = /usr/bin/hostname
+#executable = /vagrant/submits/test.sh 
+output = _remote_bios_slurm.out
+error = _remote_bios_slurm.err
+log = _remote_bios_slurm.log
+
+grid_resource = condor cm.clusterbios.com@ibr1masterl01 cm.clusterbios.com
+## +remote_universe = grid 
+#+remote_jobuniverse = 5
++remote_jobuniverse = 9
++remote_gridresource = "batch slurm" 
++remote_requirements = False 
++remote_ShouldTransferFiles = "YES"
++remote_WhenToTransferOutput = "ON_EXIT"
+#+WantJobRouter = True
+queue

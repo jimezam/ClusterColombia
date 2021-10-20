@@ -1,0 +1,16 @@
+# minimal submit description file for an HTCondor-C job
+universe = grid
+executable = /usr/bin/hostname
+output = _remote_bios.out
+error = _remote_bios.err
+log = _remote_bios.log
+
+# cm.clusterbios.com   10.70.70.1
+# ibr1masterl01        10.20.30.31
+
+grid_resource = condor cm.clusterbios.com@ibr1masterl01 cm.clusterbios.com 
++remote_Universe = standard
++remote_requirements = True
++remote_ShouldTransferFiles = "YES"
++remote_WhenToTransferOutput = "ON_EXIT"
+queue

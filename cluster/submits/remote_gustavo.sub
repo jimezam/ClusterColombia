@@ -1,0 +1,14 @@
+# minimal submit description file for an HTCondor-C job
+universe = grid
+executable = /usr/bin/hostname
+output = _remote_gustavo.out
+error = _remote_gustavo.err
+log = _remote_gustavo.log
+
+grid_resource = condor cm.clustercolombia.com cm.clustercolombia.com
+## grid_resource = condor cm.clustercaldas.com cm.clustercaldas.com
++remote_Universe = standard
++remote_requirements = True
++remote_ShouldTransferFiles = "YES"
++remote_WhenToTransferOutput = "ON_EXIT"
+queue
