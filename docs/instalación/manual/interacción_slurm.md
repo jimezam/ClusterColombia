@@ -13,3 +13,21 @@ SPOOL = /shared/filesystem/condor_spool
 ```
 
 Siendo el directorio `/shared/filesystem/condor_spool` propiedad de `condor:condor`.
+
+## Ajustes de Slurm
+
+### Alias de usuarios
+
+Por cada usuario que puede enviar trabajos al clúster, es decir, cada usuario con un *token* válido, es necesario crear su respectiva cuenta en Slurm de la siguiente manera.
+
+```
+$ sacctmgr add user xxxx Account=zzzz
+```
+
+Siendo `zzzz` una cuenta de Slurm existente y `xxxx` el nombre de usuario del propietario del token.
+
+Por ejemplo:
+
+```
+$ sacctmgr add user ingeniero Account=bios
+```
