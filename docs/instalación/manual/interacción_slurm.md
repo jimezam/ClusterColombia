@@ -31,3 +31,11 @@ Por ejemplo:
 ```
 $ sacctmgr add user ingeniero Account=bios
 ```
+
+### Habilitación de API REST
+
+Para exponer los servicios ofrecidos por el controlador de Slurm es necesario ejecutar el programa *slurmrestd* de la siguiente manera.
+
+```
+$ slurmrestd unix:/var/run/slurmrestd.socket -a rest_auth/local -s 'openapi/dbv0.0.36','v0.0.36'
+```
